@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umesh Shelke - Software Test Engineer / QA Automation</title>
+<meta name="description" content="Portfolio of Umesh Shelke, QA Automation engineer (Python, Playwright, pytest).">
+<style>
+/* Portfolio - kernel.org / gnu.org inspired */
+
+:root {
+  --bg: #ffffff;
+  --page: #f4f4f0;
+  --text: #1a1a1a;
+  --muted: #555;
+  --link: #0645ad;
+  --link-visited: #5b2a86;
+  --border: #b9b9b0;
+  --head-bg: #e6e6de;
+  --banner: #1b1b1b;
+  --banner-text: #f2f2f2;
+  --accent: #b5361c;
+  --code-bg: #111;
+  --code-text: #d7ffd7;
+  --nav-bg: #2b2b2b;
+  --nav-text: #f2f2f2;
+  --nav-hover: #b5361c;
+}
+
+:root[data-theme="dark"] {
+  --bg: #1c1c1c;
+  --page: #141414;
+  --text: #e6e6e6;
+  --muted: #a8a8a8;
+  --link: #7db4ff;
+  --link-visited: #c39bff;
+  --border: #444;
+  --head-bg: #2a2a2a;
+  --banner: #0b0b0b;
+  --nav-bg: #222;
+  --code-bg: #0b0b0b;
+}
+
+* { box-sizing: border-box; }
+body { overflow-wrap: anywhere; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 50px; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:visited { color: var(--link-visited); }
+a:hover { text-decoration: underline; }
+
+/* top terminal bar */
+#topbar {
+  background: #000;
+  color: #9dff9d;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  padding: 6px 0;
+}
+#topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+#theme-toggle {
+  background: none;
+  border: 1px solid #3a3a3a;
+  color: #9dff9d;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+#theme-toggle:hover { background: #1a1a1a; }
+.cursor { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* banner */
+#banner {
+  background: var(--banner);
+  color: var(--banner-text);
+  padding: 28px 0 22px;
+  border-bottom: 4px solid var(--accent);
+}
+#banner h1 {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 34px;
+  letter-spacing: 1px;
+}
+#banner .tagline {
+  margin: 6px 0 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  color: #c9c9c9;
+}
+
+/* nav */
+#nav {
+  background: var(--nav-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #000;
+}
+#nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+#nav a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--nav-text);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  border-right: 1px solid #000;
+}
+#nav a:hover, #nav a.active { background: var(--nav-hover); text-decoration: none; }
+
+/* content */
+main { background: var(--bg); border-left: 1px solid var(--border); border-right: 1px solid var(--border); padding-top: 8px; padding-bottom: 24px; }
+
+section { margin: 0 0 32px; }
+h2 {
+  font-size: 22px;
+  margin: 28px 0 12px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--accent);
+}
+h3 { font-size: 18px; margin: 0 0 4px; }
+
+p { margin: 0 0 12px; }
+
+.meta { font-family: "Courier New", Courier, monospace; font-size: 13px; color: var(--muted); }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; }
+table.kv { margin: 12px 0; font-size: 15px; }
+table.kv th {
+  text-align: left;
+  width: 150px;
+  padding: 4px 10px 4px 0;
+  vertical-align: top;
+  font-weight: bold;
+}
+table.kv td { padding: 4px 0; }
+
+table.grid { border: 1px solid var(--border); font-size: 15px; }
+table.grid th, table.grid td {
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+table.grid thead th { background: var(--head-bg); }
+table.grid tbody tr:nth-child(even) { background: rgba(128,128,128,0.07); }
+
+/* kernel.org style release box */
+.releases {
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  background: var(--head-bg);
+}
+.releases table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.releases table tr:last-child td { border-bottom: none; }
+.releases td.r { text-align: right; width: 110px; }
+
+.btn {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--link) !important;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--accent); color: #fff !important; text-decoration: none; border-color: var(--accent); }
+
+.badge {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  padding: 1px 8px;
+  background: #1e6b2e;
+  color: #fff;
+}
+
+.project ul, ul.plain { padding-left: 22px; margin: 8px 0 12px; }
+.project li, ul.plain li { margin-bottom: 6px; }
+
+pre.code {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  margin: 12px 0 0;
+}
+
+#copy-status { font-family: "Courier New", Courier, monospace; font-size: 13px; color: #1e6b2e; margin-left: 6px; }
+
+/* footer */
+#footer {
+  background: var(--banner);
+  color: #bdbdbd;
+  padding: 18px 0;
+  font-size: 14px;
+  border-top: 4px solid var(--accent);
+}
+#footer p { margin: 0 0 4px; }
+#footer .small { font-family: "Courier New", Courier, monospace; font-size: 12px; color: #888; }
+
+/* responsive */
+@media (max-width: 640px) {
+  #banner h1 { font-size: 26px; }
+  #nav a { padding: 9px 11px; font-size: 13px; }
+  table.kv th { width: 100px; }
+  .releases td.r { display: none; }
+  table.grid { display: block; overflow-x: auto; }
+  main { border-left: none; border-right: none; }
+}
+
+@media print {
+  #topbar, #nav, #theme-toggle { display: none; }
+  body { background: #fff; color: #000; }
+  main { border: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="wrap">
+    <span class="topbar-left">umesh@portfolio:~$ <span id="typed"></span><span class="cursor">_</span></span>
+    <button id="theme-toggle" type="button" aria-label="Toggle dark mode">[ toggle theme ]</button>
+  </div>
+</div>
+
+<header id="banner">
+  <div class="wrap">
+    <h1>Umesh Shelke</h1>
+    <p class="tagline">Software Test Engineer / QA Automation &mdash; Python &middot; Playwright &middot; pytest</p>
+  </div>
+</header>
+
+<nav id="nav">
+  <div class="wrap">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="about">
+    <h2>About</h2>
+    <p>
+      Software Test Engineer / QA Automation fresher (B.Tech CSE, 2026) with hands-on
+      experience in Python, Playwright and pytest for UI and API test automation.
+      Built a CI-enabled automation framework with 25+ tests using the Page Object Model
+      and GitHub Actions. Comfortable with Git, REST API testing, and writing clear,
+      maintainable test code.
+    </p>
+
+    <table class="kv">
+      <tr><th>Name:</th><td>Umesh Shelke</td></tr>
+      <tr><th>Role:</th><td>Software Test Engineer / QA Automation</td></tr>
+      <tr><th>Location:</th><td>Nagpur, Maharashtra, India</td></tr>
+      <tr><th>Status:</th><td><span class="badge">open to opportunities</span></td></tr>
+      <tr><th>Primary stack:</th><td>Python, Playwright, pytest, requests, GitHub Actions</td></tr>
+      <tr><th>Contact:</th><td><a href="mailto:iamumeshshelke@gmail.com">iamumeshshelke@gmail.com</a></td></tr>
+    </table>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <table class="grid">
+      <thead><tr><th>Category</th><th>Tools / Technologies</th></tr></thead>
+      <tbody>
+        <tr><td>Programming</td><td>Python, JavaScript, SQL, C++, C, Java (Basic)</td></tr>
+        <tr><td>Test Automation</td><td>Playwright, pytest, Page Object Model, pytest fixtures and markers, pytest-html reports</td></tr>
+        <tr><td>Testing</td><td>Test case design, SDLC/STLC, functional, smoke and regression testing, defect reporting</td></tr>
+        <tr><td>API Testing</td><td>REST API testing, Postman, JSON, Python requests</td></tr>
+        <tr><td>CI/CD &amp; Tools</td><td>Jira, GitHub Actions, Git, GitHub</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <article class="project">
+      <h3>QA Automation Framework (UI + API)</h3>
+      <p class="meta">Python, Playwright, pytest, requests, GitHub Actions &nbsp;|&nbsp;
+        <a href="https://github.com/theumeshshelke/QA-Automation-Framework" id="project-link">[ source ]</a></p>
+      <ul>
+        <li>Built an end-to-end automation suite (25+ tests) for the SauceDemo e-commerce site covering login, inventory sorting, cart and checkout flows, including negative and form-validation cases.</li>
+        <li>Automated REST API tests (GET, POST, PUT, DELETE, 404 handling, response schema checks) against JSONPlaceholder using pytest and requests.</li>
+        <li>Designed the framework with the Page Object Model, reusable pytest fixtures, markers (smoke, ui, api) and a central config for test data.</li>
+        <li>Generated HTML reports with automatic screenshots on UI test failures, and set up a CI pipeline on GitHub Actions.</li>
+        <li>Authored a test plan, manual test cases and a bug report template alongside the automated tests.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <table class="grid">
+      <thead><tr><th>Period</th><th>Qualification</th><th>Institution</th><th>Score</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Nov 2022 &ndash; Jun 2026</td>
+          <td>B.Tech in Computer Science and Engineering</td>
+          <td>Yeshwantrao Chavan College of Engineering (YCCE), Nagpur</td>
+          <td>CGPA 7.02 / 10.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <table class="kv">
+      <tr><th>Email:</th><td><a href="mailto:iamumeshshelke@gmail.com" id="email">iamumeshshelke@gmail.com</a> <button type="button" id="copy-email" class="btn">copy</button> <span id="copy-status"></span></td></tr>
+      <tr><th>Phone:</th><td><a href="tel:+919284666587">+91-9284666587</a></td></tr>
+      <tr><th>LinkedIn:</th><td><a href="https://linkedin.com/in/umeshshelke" id="linkedin">linkedin.com/in/umeshshelke</a></td></tr>
+      <tr><th>GitHub:</th><td><a href="https://github.com/theumeshshelke" id="github">github.com/theumeshshelke</a></td></tr>
+      <tr><th>Location:</th><td>Nagpur, Maharashtra, India</td></tr>
+    </table>
+  </section>
+
+</main>
+
+<footer id="footer">
+  <div class="wrap">
+    <p>&copy; <span id="year">2026</span> Umesh Shelke. Last updated: <span id="updated">2026-11-12</span>.</p>
+    <p class="small"><span id="uname"></span></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- Theme toggle (remembered in localStorage) ----
+  var root = document.documentElement;
+  var toggle = document.getElementById("theme-toggle");
+
+  function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  var saved = safeGet("theme");
+  if (saved) root.setAttribute("data-theme", saved);
+
+  toggle.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    safeSet("theme", next);
+  });
+
+  // ---- Typing effect in the top bar ----
+  var typedEl = document.getElementById("typed");
+  var cmd = "cat about.txt";
+  var i = 0;
+  function type() {
+    if (i <= cmd.length) {
+      typedEl.textContent = cmd.slice(0, i);
+      i++;
+      setTimeout(type, 90);
+    }
+  }
+  type();
+
+  // ---- Footer: year, last updated, uname-style line ----
+  var now = new Date();
+  document.getElementById("year").textContent = now.getFullYear();
+
+  var pad = function (n) { return String(n).padStart(2, "0"); };
+  var iso = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+  document.getElementById("updated").textContent = iso;
+
+  document.getElementById("uname").textContent =
+    "umesh-portfolio 1.0 #1 SMP " + iso + " x86_64 GNU/Linux";
+
+  // ---- Copy email ----
+  var copyBtn = document.getElementById("copy-email");
+  var status = document.getElementById("copy-status");
+  copyBtn.addEventListener("click", function () {
+    var email = "iamumeshshelke@gmail.com";
+    function done(msg) {
+      status.textContent = msg;
+      setTimeout(function () { status.textContent = ""; }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(
+        function () { done("copied"); },
+        function () { done("copy failed"); }
+      );
+    } else {
+      done("copy not supported");
+    }
+  });
+
+  // ---- Highlight active nav link while scrolling ----
+  var links = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
+  var sections = links.map(function (a) {
+    return document.querySelector(a.getAttribute("href"));
+  });
+
+  function onScroll() {
+    var pos = window.scrollY + 80;
+    var current = 0;
+    sections.forEach(function (s, idx) {
+      if (s && s.offsetTop <= pos) current = idx;
+    });
+    links.forEach(function (a, idx) {
+      a.classList.toggle("active", idx === current);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
